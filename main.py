@@ -292,9 +292,12 @@ def process_slides():
         html_sections = {}
         
         for category, slides in uploaded_slides.items():
+            # Sanitize category name for CSS class to prevent HTML generation errors
+            safe_category = sanitize_filename(category.lower()) if category else 'uncategorized'
+            
             html_parts = []
             html_parts.append(f'<!-- {category} Section -->')
-            html_parts.append(f'<div class="{category.lower()}-section">')
+            html_parts.append(f'<div class="{safe_category}-section">')
             html_parts.append(f'  <h2>{category}</h2>')
             html_parts.append('  <div class="slides-container">')
             
